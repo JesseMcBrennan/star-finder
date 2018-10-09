@@ -28,3 +28,4 @@ exports.down = function(knex, Promise) {
       knex.schema.dropTable('exoplanets')
     ]);
 };
+
