@@ -1,15 +1,16 @@
 {
   "name": "star-finder",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "file-system": "^2.2.2",
     "knex": "^0.15.2",
     "nightmare": "^3.0.1",
@@ -20,5 +21,14 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesseMcBrennan/star-finder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JesseMcBrennan/star-finder/issues"
+  },
+  "homepage": "https://github.com/JesseMcBrennan/star-finder#readme",
+  "description": ""
 }
