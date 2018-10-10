@@ -5,6 +5,17 @@ const server = require('../server');
 
 chai.use(chaiHttp);
 
+beforeEach((done) => {
+  knex.migrate.rollback()
+    .then(() => {
+      knext.migrate.latest()
+        .then(( => knex.seed.run()
+            .then(() => {
+              done();
+        })))
+    });
+});
+
 describe('Client Routes', () => {
   it('should return the homepage with text', done => {
     chai.request(server)
@@ -44,5 +55,4 @@ describe('API Routes', () => {
       });
     });
   });
-  
 });
