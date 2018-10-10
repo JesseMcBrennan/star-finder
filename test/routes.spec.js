@@ -1,34 +1,23 @@
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const {app, database} = require('../server');
+const knex = require('../knexfile')
 
 chai.use(chaiHttp);
 
-beforeEach((done) => {
-  knex.migrate.rollback()
-    .then(() => {
-      knext.migrate.latest()
-        .then(( => knex.seed.run()
-            .then(() => {
-              done();
-        })))
-    });
-});
-
 describe('Client Routes', () => {
   it('should return the homepage with text', done => {
-    chai.request(server)
+    chai.request(app)
     .get('/')
     .end((err, response) => {
       response.should.have.status(200);
       response.should.be.html;
-      response.res.text.should.equal('We\'re going to test all the routes!');
       done();
     });
   });
   it('should return a 404 for a route that does not exist', done => {
-    chai.request(server)
+    chai.request(app)
     .get('/sad')
     .end((err, response) => {
       response.should.have.status(404);
@@ -38,9 +27,19 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
+  beforeEach((done) => {
+  database.migrate.rollback()
+    .then(() => {
+      database.migrate.latest()
+        .then(() => database.seed.run()
+            .then(() => {
+              done();
+        }))
+    });
+});
   describe('GET /api/v1/stars', () => {
     it('should return all of the stars', done => {
-      chai.request(server)
+      chai.request(app)
       .get('/api/v1/stars')
       .end((err, response) => {
         response.should.have.status(200);

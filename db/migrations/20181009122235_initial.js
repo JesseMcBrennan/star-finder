@@ -24,8 +24,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
     return Promise.all([
-      knex.schema.dropTable('stars'),
-      knex.schema.dropTable('exoplanets')
+      knex.schema.dropTable('exoplanets'),
+      knex.schema.dropTable('stars')
     ]);
 };
 
