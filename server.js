@@ -36,6 +36,72 @@ app.get('/api/v1/exoplanets', (request, response) => {
     });
 });
 
+app.get('/api/v1/stars/:id', (request, response) => {
+  database('stars').where('id', request.params.id).select()
+  .then(stars => {
+    if(stars.length) {
+      response.status(200).json(stars);
+    } else {
+      response.status(404).json({
+        error: `Could not find star with id ${request.params.id}`
+      });
+    }
+  })
+  .catch(error => {
+    response.status(500).json({ error })
+  })
+})
+
+app.get('/api/v1/exoplanets/:id', (request, response) => {
+  database('exoplanets').where('id', request.params.id).select()
+  .then(exoplanets => {
+    if(exoplanets.length) {
+      response.status(200).json(exoplanets);
+    } else {
+      response.status(404).json({
+        error: `Could not find an exoplanet with id ${request.params.id}`
+      });
+    }
+  })
+  .catch(error => {
+    response.status(500).json({ error })
+  })
+})
+
+app.delete('/api/v1/stars/:id', (request, response) => {
+  database('stars').where('id', request.params.id).select()
+  .then(stars => {
+    if(stars.length) {
+      response.status(200).json(stars) 
+    } else {
+      response.status(404).json({
+        error: `Could not find star with id ${request.params.id}`
+      });
+    }
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  })
+});
+
+app.delete('/api/v1/exoplanets/:id', (request, response) => {
+  database('exoplanets').where('id', request.params.id).select()
+  .then(exoplanets => {
+    if(exoplanets.length) {
+      response.status(200).json(exoplanets) 
+    } else {
+      response.status(404).json({
+        error: `Could not find exoplanets with id ${request.params.id}`
+      });
+    }
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  })
+});
+
+
+
 app.listen(3000, () => {
   console.log('Express intro running on localhost:3000');
 });
