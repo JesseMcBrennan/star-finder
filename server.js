@@ -88,10 +88,10 @@ app.post('/api/v1/stars', (request, response) => {
   const star = request.body;
 
   for (let requireParam of ['name', 'mass']) {
-    (!star[requiredParam]) {
+    if(!star[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
-      response.status(201).json({ message: 'Star successfully'})
+      response.status(201).json({ message: 'Star successfully added'})
     }
   }
 })
@@ -111,6 +111,18 @@ app.delete('/api/v1/exoplanets/:id', (request, response) => {
     response.status(500).json({ error });
   })
 });
+
+app.post('/api/v1/exoplanets', (request, response) => {
+  const exoplanet = request.body;
+
+  for (let requireParam of ['name', 'mass']) {
+    if(!exoplanet[requiredParam]) {
+      response.status(422).json({ error: 'You are missing a required parameter'});
+    } else {
+      response.status(201).json({ message: 'Star successfully added'})
+    }
+  }
+})
 
 
 

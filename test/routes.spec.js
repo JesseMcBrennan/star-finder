@@ -36,7 +36,7 @@ describe('API Routes', () => {
               done();
         }))
     });
-});
+  });
   describe('GET /api/v1/stars', () => {
     it('should return all of the stars', done => {
       chai.request(app)
@@ -67,11 +67,11 @@ describe('API Routes', () => {
         response.body[0].name.should.equal('OGLE-2016-BLG-1469L b');
         response.body[0].mass.should.equal('13.6');
         done();
-      })
-    })
-  })
+      });
+    });
+  });
   describe('POST /api/v1/stars', () => {
-    it('POST /api/v1/students HAPPY', () => {
+    it('POST /api/v1/stars HAPPY', () => {
       chai.request(app)
       .post('/api/v1/stars')
       .send({
@@ -79,11 +79,58 @@ describe('API Routes', () => {
         mass: '271.945750016'
       })
       .end((err, response) => {
+        response.should.have.status(500);
+        response.should.be.html;
+        response.body.should.have.property('message')
+        response.body.message.should.equal('star successfully added')
+      });
+    });
+
+    it('POST /api/v1/stars SAD', () => {
+      chai.request(app)
+      .post('/api/v1/stars')
+      .send({
+        nambie: 'OGLE-2016-BLG-1469L',
+        mass: '271.945750016'
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.html;
+        response.body.should.have.property('error')
+        response.body.message.should.equal('You are missing a required parameter')
+      });
+    });
+  });
+
+  describe('POST /api/v1/exoplanets', () => {
+    it('POST /api/v1/exoplanets HAPPY', () => {
+      chai.request(app)
+      .post('/api/v1/exoplanets')
+      .send({
+        name: 'OGLE-2016-BLG-1469L b',
+        mass: '271.945750016'
+      })
+      .end((err, response) => {
         response.should.have.status(201);
-        response.should.be.json;
-        response.should.have.property('name')
-        response.body.message.should.equal('')
+        response.should.be.html;
+          response.body.should.have.property('message')
+          response.body.message.should.equal('star successfully added')
       })
     })
-  })
+
+    it('POST /api/v1/exoplanets SAD', () => {
+      chai.request(app)
+      .post('/api/v1/exoplanets')
+      .send({
+        nambie: 'OGLE-2016-BLG-1469L b',
+        mass: '271.945750016'
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.html;
+        response.body.should.have.property('error')
+        response.body.message.should.equal('You are missing a required parameter')
+      })
+    })
+  });
 });
