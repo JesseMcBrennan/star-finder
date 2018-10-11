@@ -145,8 +145,6 @@ let exoplanetsData = [
 ]
 
 
-
-
 const createStar = (knex, star) => {
   return knex('stars').insert({
     name: star.name,
