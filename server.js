@@ -91,6 +91,7 @@ app.post('/api/v1/stars', (request, response) => {
     if(!star[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
+      // response.send({ name: })
       response.status(201).json({ message: 'Star successfully added'})
     }
   }
