@@ -84,6 +84,18 @@ app.delete('/api/v1/stars/:id', (request, response) => {
   })
 });
 
+app.post('/api/v1/stars', (request, response) => {
+  const star = request.body;
+
+  for (let requireParam of ['name', 'mass']) {
+    (!star[requiredParam]) {
+      response.status(422).json({ error: 'You are missing a required parameter'});
+    } else {
+      response.status(201).json({ message: 'Star successfully'})
+    }
+  }
+})
+
 app.delete('/api/v1/exoplanets/:id', (request, response) => {
   database('exoplanets').where('id', request.params.id).select()
   .then(exoplanets => {
