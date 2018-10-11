@@ -88,7 +88,7 @@ app.post('/api/v1/stars', (request, response) => {
   const star = request.body;
 
   for (let requireParam of ['name', 'mass']) {
-    (!star[requiredParam]) {
+    if(!star[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
       response.status(201).json({ message: 'Star successfully'})
