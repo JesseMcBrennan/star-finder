@@ -26,50 +26,50 @@ describe('Client Routes', () => {
   });
 });
 
-describe('API Routes', () => {
-  beforeEach((done) => {
-  database.migrate.rollback()
-    .then(() => {
-      database.migrate.latest()
-        .then(() => database.seed.run()
-            .then(() => {
-              done();
-        }))
-    });
-  });
-  describe('GET /api/v1/stars', () => {
-    it('should return all of the stars', done => {
-      chai.request(app)
-      .get('/api/v1/stars')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.body.should.be.a('array');
-        response.body.length.should.equal(30);
-        response.body[0].should.have.property('name');
-        response.body[0].name.should.equal('OGLE-2016-BLG-1469L');
-        response.body[0].should.have.property('mass');
-        response.body[0].mass.should.equal('271.945750016');
-        done();
-      });
-    });
-  });
-  describe('GET /api/v1/exoplanets', () => {
-    it('should return all of the exoplanets', done => {
-      chai.request(app)
-      .get('/api/v1/exoplanets')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.body.should.be.a('array');
-        response.body.length.should.equal(840);
-        response.body[0].should.have.property('name');
-        response.body[0].name.should.equal('OGLE-2016-BLG-1469L b');
-        response.body[0].mass.should.equal('13.6');
-        done();
-      });
-    });
-  });
+// describe('API Routes', () => {
+//   beforeEach((done) => {
+//   database.migrate.rollback()
+//     .then(() => {
+//       database.migrate.latest()
+//         .then(() => database.seed.run()
+//             .then(() => {
+//               done();
+//         }))
+//     });
+//   });
+  // describe('GET /api/v1/stars', () => {
+  //   it('should return all of the stars', done => {
+  //     chai.request(app)
+  //     .get('/api/v1/stars')
+  //     .end((err, response) => {
+  //       response.should.have.status(200);
+  //       response.should.be.json;
+  //       response.body.should.be.a('array');
+  //       response.body.length.should.equal(30);
+  //       response.body[0].should.have.property('name');
+  //       response.body[0].name.should.equal('OGLE-2016-BLG-1469L');
+  //       response.body[0].should.have.property('mass');
+  //       response.body[0].mass.should.equal('271.945750016');
+  //       done();
+  //     });
+  //   });
+  // });
+  // describe('GET /api/v1/exoplanets', () => {
+  //   it('should return all of the exoplanets', done => {
+  //     chai.request(app)
+  //     .get('/api/v1/exoplanets')
+  //     .end((err, response) => {
+  //       response.should.have.status(200);
+  //       response.should.be.json;
+  //       response.body.should.be.a('array');
+  //       response.body.length.should.equal(840);
+  //       response.body[0].should.have.property('name');
+  //       response.body[0].name.should.equal('OGLE-2016-BLG-1469L b');
+  //       response.body[0].mass.should.equal('13.6');
+  //       done();
+  //     });
+  //   });
+  // });
   // describe('POST /api/v1/stars', () => {
   //   it('POST /api/v1/stars HAPPY', () => {
   //     chai.request(app)
