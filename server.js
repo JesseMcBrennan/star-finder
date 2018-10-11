@@ -8,12 +8,12 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
-app.use(express.static('public'));
+// app.use(express.static('public/'));
 app.locals.title = 'Star-Finder';
 
 
 app.get('/', (request, response) => {
-  response.send(app.locals.title);
+  response.send('Youre doing it Peter');
 });
 
 app.get('/api/v1/stars', (request, response) => {
