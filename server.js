@@ -87,7 +87,7 @@ app.delete('/api/v1/stars/:id', (request, response) => {
 app.post('/api/v1/stars', (request, response) => {
   const star = request.body;
 
-  for (let requireParam of ['name', 'mass']) {
+  for (let requiredParam of ['name', 'mass']) {
     if(!star[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
@@ -116,7 +116,7 @@ app.delete('/api/v1/exoplanets/:id', (request, response) => {
 app.post('/api/v1/exoplanets', (request, response) => {
   const exoplanet = request.body;
 
-  for (let requireParam of ['name', 'mass']) {
+  for (let requiredParam of ['name', 'mass']) {
     if(!exoplanet[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
