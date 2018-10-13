@@ -53,6 +53,22 @@ app.get('/api/v1/stars/:id', (request, response) => {
   })
 })
 
+// app.get('/api/v1/stars?id', (request, response) => {
+//   database('stars').where('id', request.params.id).select()
+//   .then(stars => {
+//     if(stars.length) {
+//       response.status(200).json(stars);
+//     } else {
+//       response.status(404).json({
+//         error: `Could not find star with id ${request.params.id}`
+//       });
+//     }
+//   })
+//   .catch(error => {
+//     response.status(500).json({ error })
+//   })
+// })
+
 app.get('/api/v1/exoplanets/:id', (request, response) => {
   database('exoplanets').where('id', request.params.id).select()
   .then(exoplanets => {
@@ -127,11 +143,10 @@ app.post('/api/v1/exoplanets', (request, response) => {
 })
 
 app.put('/api/v1/stars/:id', (request, response) => {
-  database('stars').where('id', request.params.id).update(response.body)
+  database('stars').where('id', request.params.id).select()
   .then(stars => {
     if(stars.length) {
       response.status(205).json({ message: 'Star successfully replaced'})
-  // response.send('PUT request to homepage')
     } else {
       response.status(404).json({
         error: `Could not find star with id ${request.params.id}`
@@ -140,15 +155,14 @@ app.put('/api/v1/stars/:id', (request, response) => {
   })
 })
 
-app.patch(`/api/v1/exoplanets/?name=${name}`, (request, response) => {
-  database('exoplanets').where('id', request.params.id).update(response.body)
+app.put('/api/v1/exoplanets/:id', (request, response) => {
+  database('exoplanets').where('id', request.params.id).select()
   .then(exoplanets => {
     if(exoplanets.length) {
       response.status(205).json({ message: 'Exoplanet successfully replaced'})
-  // response.send('PUT request to homepage')
     } else {
       response.status(404).json({
-        error: `Could not find exoplanet with id ${request.params.id}`
+        error: `Could not find exoplanet with name ${request.params.id}`
       })
     }
   })
