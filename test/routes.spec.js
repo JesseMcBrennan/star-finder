@@ -133,4 +133,7 @@ describe('API Routes', () => {
       })
     })
   });
+  describe('DELETE /api/v1/stars/:id', (request, response) => {
+    chais.request(app)
+  })
 });
