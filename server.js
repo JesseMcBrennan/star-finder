@@ -5,6 +5,7 @@ const database = require('knex')(configuration);
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
+const name = '11 Com'
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
@@ -52,6 +53,22 @@ app.get('/api/v1/stars/:id', (request, response) => {
   })
 })
 
+// app.get('/api/v1/stars?id', (request, response) => {
+//   database('stars').where('id', request.params.id).select()
+//   .then(stars => {
+//     if(stars.length) {
+//       response.status(200).json(stars);
+//     } else {
+//       response.status(404).json({
+//         error: `Could not find star with id ${request.params.id}`
+//       });
+//     }
+//   })
+//   .catch(error => {
+//     response.status(500).json({ error })
+//   })
+// })
+
 app.get('/api/v1/exoplanets/:id', (request, response) => {
   database('exoplanets').where('id', request.params.id).select()
   .then(exoplanets => {
@@ -98,7 +115,7 @@ app.post('/api/v1/stars', (request, response) => {
 })
 
 app.delete('/api/v1/exoplanets/:id', (request, response) => {
-  database('exoplanets').where('id', request.params.id).select()
+  database('exoplanets').where('id', request.params.id).del()
   .then(exoplanets => {
     if(exoplanets.length) {
       response.status(200).json(exoplanets) 
@@ -120,12 +137,36 @@ app.post('/api/v1/exoplanets', (request, response) => {
     if(!exoplanet[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
-      response.status(201).json({ message: 'Star successfully added'})
+      response.status(201).json({ message: 'Exoplanet successfully added'})
     }
   }
 })
 
+app.put('/api/v1/stars/:id', (request, response) => {
+  database('stars').where('id', request.params.id).select()
+  .then(stars => {
+    if(stars.length) {
+      response.status(205).json({ message: 'Star successfully replaced'})
+    } else {
+      response.status(404).json({
+        error: `Could not find star with id ${request.params.id}`
+      })
+    }
+  })
+})
 
+app.put('/api/v1/exoplanets/:id', (request, response) => {
+  database('exoplanets').where('id', request.params.id).select()
+  .then(exoplanets => {
+    if(exoplanets.length) {
+      response.status(205).json({ message: 'Exoplanet successfully replaced'})
+    } else {
+      response.status(404).json({
+        error: `Could not find exoplanet with name ${request.params.id}`
+      })
+    }
+  })
+})
 
 app.listen(app.get('port'), () => {
   console.log('Express intro running on localhost:3000');
