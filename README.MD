@@ -27,3 +27,9 @@
 * ##### POST -  New Star - /api/v1/exoplanets
 	To add am exoplanet to you need to send a request containing a name and mass. Missing a parameter will result in an error message.
 
+* ##### DELETE - Star - /api/v1/stars/:id
+	To delete a specific star use the DELETE method including an id in the body.
+
+* ##### DELETE - Exoplanet - /api/v1/stars/:id
+	To delete a specific exoplanet use the DELETE method including an id in the body.
+	
