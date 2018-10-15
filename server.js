@@ -9,7 +9,6 @@ const name = '11 Com'
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
-// app.use(express.static('public/'));
 app.locals.title = 'Star-Finder';
 
 
@@ -18,13 +17,28 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/stars', (request, response) => {
-  database('stars').select()
+  if(request.query.deletable) {
+    let stars_deletable = request.query.deletable.toLowerCase()
+ 
+  database('stars')
+    .where({deletable: stars_deletable })
+    .select()
     .then((stars) => {
       response.status(200).json(stars);
     })
     .catch((error) => {
       response.status(500).json({ error });
-    });
+    }); 
+  } else {
+    database('stars')
+      .select()
+      .then(stars => {
+        response.status(200).json(stars)
+      })
+      .catch(error => {
+        response.status(500).json({error})
+      })
+  }
 });
 
 app.get('/api/v1/exoplanets', (request, response) => {
@@ -51,6 +65,31 @@ app.get('/api/v1/stars/:id', (request, response) => {
   .catch(error => {
     response.status(500).json({ error })
   })
+})
+
+app.get('/api/v1/stars', (request, response) => {
+  if(request.query) {
+    let star = request.body
+
+    database('stars')
+      .where({ star })
+      .select()
+      .then(stars => {
+        response.status(200).jason(stars)
+      })
+      .catch(error => {
+        response.status(500).json({ error })
+      });
+  } else {
+      database('stars')
+      .select()
+      .then(stars => {
+        response.status(200).json(stars)
+      })
+      .catch(error => {
+        response.status(500).json({error})
+      })
+  }
 })
 
 // app.get('/api/v1/stars?id', (request, response) => {
