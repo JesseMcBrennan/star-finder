@@ -6,15 +6,17 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const name = '11 Com'
+const cors = require('cors');
 
+app.use(cors())
 app.set('port', process.env.PORT || 3009);
 app.use(bodyParser.json());
 // app.use(express.static('public/'));
-app.locals.title = 'Star-Finder';
+app.locals.title = 'Star-Finder is deploying successfully';
 
 
 app.get('/', (request, response) => {
-  response.send('Youre doing it Peter');
+  response.status(200).json(app.locals.title);
 });
 
 app.get('/api/v1/stars', (request, response) => {
