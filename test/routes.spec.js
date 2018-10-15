@@ -110,7 +110,7 @@ describe('API Routes', () => {
         response.should.have.status(201);
         response.should.be.json;
           response.body.should.have.property('message')
-          response.body.message.should.equal('Something successfully added')
+          response.body.message.should.equal('Exoplanet successfully added')
       })
     })
 
