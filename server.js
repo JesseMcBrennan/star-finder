@@ -53,7 +53,7 @@ app.get('/api/v1/stars/:id', (request, response) => {
   })
 })
 
-// app.get('/api/v1/stars?id', (request, response) => {
+// app.get('/api/v1/stars', (request, response) => {
 //   database('stars').where('id', request.params.id).select()
 //   .then(stars => {
 //     if(stars.length) {
