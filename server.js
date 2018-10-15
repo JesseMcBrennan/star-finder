@@ -73,7 +73,6 @@ app.get('/api/v1/stars/:id', (request, response) => {
   })
 })
 
-<<<<<<< HEAD
 app.get('/api/v1/stars', (request, response) => {
   if(request.query) {
     let star = request.body

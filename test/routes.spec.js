@@ -12,7 +12,7 @@ describe('Client Routes', () => {
     .get('/')
     .end((err, response) => {
       response.should.have.status(200);
-      response.should.be.html;
+      response.should.be.json;
       done();
     });
   });
