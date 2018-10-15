@@ -12,7 +12,7 @@ describe('Client Routes', () => {
     .get('/')
     .end((err, response) => {
       response.should.have.status(200);
-      response.should.be.html;
+      response.should.be.json;
       done();
     });
   });
@@ -99,6 +99,7 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/exoplanets', () => {
+
     it('POST /api/v1/exoplanets HAPPY', () => {
       chai.request(app)
       .post('/api/v1/exoplanets')
