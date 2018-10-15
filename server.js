@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 const name = '11 Com'
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3009);
 app.use(bodyParser.json());
 // app.use(express.static('public/'));
 app.locals.title = 'Star-Finder';
