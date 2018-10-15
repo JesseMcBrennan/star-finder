@@ -6,14 +6,19 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const name = '11 Com'
+const cors = require('cors');
 
-app.set('port', process.env.PORT || 3000);
+app.use(cors())
+app.set('port', process.env.PORT || 3009);
 app.use(bodyParser.json());
-app.locals.title = 'Star-Finder';
+
+// app.use(express.static('public/'));
+app.locals.title = 'Star-Finder is deploying successfully';
+
 
 
 app.get('/', (request, response) => {
-  response.send('Youre doing it Peter');
+  response.status(200).json(app.locals.title);
 });
 
 app.get('/api/v1/stars', (request, response) => {
@@ -68,6 +73,7 @@ app.get('/api/v1/stars/:id', (request, response) => {
   })
 })
 
+<<<<<<< HEAD
 app.get('/api/v1/stars', (request, response) => {
   if(request.query) {
     let star = request.body
@@ -93,7 +99,8 @@ app.get('/api/v1/stars', (request, response) => {
   }
 })
 
-// app.get('/api/v1/stars?id', (request, response) => {
+
+// app.get('/api/v1/stars', (request, response) => {
 //   database('stars').where('id', request.params.id).select()
 //   .then(stars => {
 //     if(stars.length) {
