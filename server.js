@@ -24,7 +24,8 @@ app.get('/api/v1/stars', (request, response) => {
     .where({deletable: stars_deletable })
     .select()
     .then((stars) => {
-      response.status(200).json(stars);
+      response.status(
+        200).json(stars);
     })
     .catch((error) => {
       response.status(500).json({ error });
