@@ -27,6 +27,7 @@ app.get('/api/v1/stars', (request, response) => {
     });
 });
 
+
 app.get('/api/v1/exoplanets', (request, response) => {
   database('exoplanets').select()
     .then((exoplanets) => {
