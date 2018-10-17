@@ -12,7 +12,6 @@ app.use(cors())
 app.set('port', process.env.PORT || 3009);
 app.use(bodyParser.json());
 
-// app.use(express.static('public/'));
 app.locals.title = 'Star-Finder is deploying successfully';
 
 app.get('/', (request, response) => {
@@ -45,17 +44,34 @@ app.get('/api/v1/stars', (request, response) => {
   }
 });
 
-
-//forcing a change
+// app.get('/api/v1/exoplanets', (request, response) => {
+//   database('exoplanets').select()
+//     .then((exoplanets) => {
+//       response.status(200).json(exoplanets);
+//     })
+//     .catch((error) => {
+//       response.status(500).json({ error });
+//     });
+// });
 
 app.get('/api/v1/exoplanets', (request, response) => {
-  database('exoplanets').select()
-    .then((exoplanets) => {
-      response.status(200).json(exoplanets);
-    })
-    .catch((error) => {
-      response.status(500).json({ error });
-    });
+  if (request.query.star_id) {
+    const starId = request.query.star_id;
+    
+    database('exoplanets').where('star_id', starId).select()
+      .then((exoplanets) => {
+        if(!exoplanets.length) {
+          return response.status(404).json({
+            error: `${starId} doesnt exist!`
+          })
+        }
+        return response.status(200).json(exoplanets);
+      });
+  } else {
+    database('exoplanets').select()
+      .then(exoplanets => response.status(200).json(exoplanets))
+      .catch(error => response.status(500).json({ error: 'Internal server error!'}))
+  }
 });
 
 app.get('/api/v1/stars/:id', (request, response) => {
@@ -216,7 +232,7 @@ app.put('/api/v1/exoplanets/:id', (request, response) => {
 })
 
 app.listen(app.get('port'), () => {
-  console.log('Express intro running on localhost:3000');
+  console.log('Express intro running on localhost:3009');
 });
 
 module.exports = {app, database};
