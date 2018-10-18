@@ -99,7 +99,6 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/exoplanets', () => {
-
     it('POST /api/v1/exoplanets HAPPY', () => {
       chai.request(app)
       .post('/api/v1/exoplanets')
@@ -130,4 +129,26 @@ describe('API Routes', () => {
       })
     })
   });
+
+  describe('DELETE', () => {
+    it('DELETE /api/v1/stars/:id HAPPY', (done) => {
+      const firstStar = 1;
+      chai.request(app)
+        .delete(`api/v1/stars/${firstStar}`)
+        .end((err, response) => {
+          response.should.have.status(204);
+          done();
+        })
+    })
+    it('DELETE /api/v1/stars/:id SAD', (done) => {
+      const sadPath = 1
+      chai.request(app)
+        .delete(`api/v1/stars/${sadPath}`)
+        .end((err, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+  })
+
 });

@@ -44,20 +44,10 @@ app.get('/api/v1/stars', (request, response) => {
   }
 });
 
-// app.get('/api/v1/exoplanets', (request, response) => {
-//   database('exoplanets').select()
-//     .then((exoplanets) => {
-//       response.status(200).json(exoplanets);
-//     })
-//     .catch((error) => {
-//       response.status(500).json({ error });
-//     });
-// });
-
 app.get('/api/v1/exoplanets', (request, response) => {
   if (request.query.star_id) {
     const starId = request.query.star_id;
-    
+
     database('exoplanets').where('star_id', starId).select()
       .then((exoplanets) => {
         if(!exoplanets.length) {
@@ -115,23 +105,6 @@ app.get('/api/v1/stars', (request, response) => {
   }
 })
 
-
-// app.get('/api/v1/stars', (request, response) => {
-//   database('stars').where('id', request.params.id).select()
-//   .then(stars => {
-//     if(stars.length) {
-//       response.status(200).json(stars);
-//     } else {
-//       response.status(404).json({
-//         error: `Could not find star with id ${request.params.id}`
-//       });
-//     }
-//   })
-//   .catch(error => {
-//     response.status(500).json({ error })
-//   })
-// })
-
 app.get('/api/v1/exoplanets/:id', (request, response) => {
   database('exoplanets').where('id', request.params.id).select()
   .then(exoplanets => {
@@ -149,19 +122,16 @@ app.get('/api/v1/exoplanets/:id', (request, response) => {
 })
 
 app.delete('/api/v1/stars/:id', (request, response) => {
-  database('stars').where('id', request.params.id).select()
-  .then(stars => {
-    if(stars.length) {
-      response.status(200).json(stars) 
-    } else {
-      response.status(404).json({
-        error: `Could not find star with id ${request.params.id}`
-      });
-    }
+  database('stars')
+    .where('id', request.params.id)
+    .del()
+    .then((delStar) => {
+      if(!delStar) {
+        return response.status(422).json({ error: 'This star does not exist' }) 
+      }
+    return response.sendStatus(204);
   })
-  .catch(error => {
-    response.status(500).json({ error });
-  })
+  .catch(error => response.status(500).json({ error: 'Server Error '})) ;
 });
 
 app.post('/api/v1/stars', (request, response) => {
@@ -171,7 +141,6 @@ app.post('/api/v1/stars', (request, response) => {
     if(!star[requiredParam]) {
       response.status(422).json({ error: 'You are missing a required parameter'});
     } else {
-      // response.send({ name: })
       response.status(201).json({ message: 'Star successfully added'})
     }
   }
@@ -183,7 +152,7 @@ app.delete('/api/v1/exoplanets/:id', (request, response) => {
     if(exoplanets.length) {
       response.status(200).json(exoplanets) 
     } else {
-      response.status(404).json({
+      response.status(422).json({
         error: `Could not find exoplanets with id ${request.params.id}`
       });
     }
