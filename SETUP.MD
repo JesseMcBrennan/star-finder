@@ -18,3 +18,15 @@ git fetch upstream master
 `npm install`
 
 `node server.js`
+
+Ensure Postgres is installed.
+
+`CREATE DATABASE exoplanets`
+
+`CREATE DATABASE exoplanets_test`
+
+`knex migrate:latest`
+
+`knext seed:run`
+
+
